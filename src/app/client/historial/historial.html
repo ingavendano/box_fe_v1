@@ -1,0 +1,231 @@
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-display font-bold text-secondary">
+                Histórico de Paquetes
+            </h1>
+            <p class="text-gray-500 mt-1">
+                Revisa todos tus paquetes procesados y entregados.
+            </p>
+        </div>
+
+        <div class="flex gap-2">
+            <div class="relative">
+                <mat-icon class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">search</mat-icon>
+                <input type="text" placeholder="Buscar paquete..."
+                    class="pl-9 pr-4 py-2 rounded-xl border border-border-light bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm w-full sm:w-64" />
+            </div>
+            <button
+                class="p-2 rounded-xl border border-border-light bg-white hover:bg-soft-bg text-gray-500 transition-colors">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-2xl shadow-sm border border-border-light overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse whitespace-nowrap">
+                <thead>
+                    <tr
+                        class="bg-soft-bg/50 border-b border-border-light text-xs uppercase tracking-wider text-gray-500 font-bold">
+                        <th class="px-6 py-4">Tracking / Guía</th>
+                        <th class="px-6 py-4">Descripción</th>
+                        <th class="px-6 py-4">Fecha</th>
+                        <th class="px-6 py-4">Estado</th>
+                        <th class="px-6 py-4 text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm divide-y divide-border-light">
+                    @for (pkg of packages; track pkg.id) {
+                    <tr class="hover:bg-soft-bg/30 transition-colors cursor-pointer" (click)="openModal(pkg)">
+                        <td class="px-6 py-4 font-mono text-primary font-medium">
+                            {{ pkg.tracking }}
+                        </td>
+                        <td class="px-6 py-4 text-secondary font-medium">
+                            {{ pkg.description }}
+                        </td>
+                        <td class="px-6 py-4 text-gray-500">{{ pkg.date }}</td>
+                        <td class="px-6 py-4">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
+                                [ngClass]="{
+                        'bg-green-100 text-green-700': pkg.status === 'Entregado',
+                        'bg-accent-yellow/20 text-yellow-700': pkg.status === 'En Tránsito',
+                        'bg-soft-blue text-primary': pkg.status === 'Bodega Miami'
+                      }">
+                                <span class="w-1.5 h-1.5 rounded-full" [ngClass]="{
+                          'bg-green-500': pkg.status === 'Entregado',
+                          'bg-yellow-500': pkg.status === 'En Tránsito',
+                          'bg-primary': pkg.status === 'Bodega Miami'
+                        }"></span>
+                                {{ pkg.status }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button
+                                class="text-gray-400 hover:text-primary p-1.5 rounded-lg hover:bg-soft-blue transition-colors"
+                                (click)="openModal(pkg); $event.stopPropagation()">
+                                <mat-icon class="text-sm">visibility</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="p-4 border-t border-border-light flex items-center justify-between text-sm text-gray-500">
+            <span>Mostrando 1 a 5 de 24 paquetes</span>
+            <div class="flex gap-1">
+                <button class="p-1 rounded hover:bg-soft-bg disabled:opacity-50">
+                    <mat-icon class="text-sm">chevron_left</mat-icon>
+                </button>
+                <button class="w-7 h-7 rounded bg-primary text-white font-medium flex items-center justify-center">
+                    1
+                </button>
+                <button class="w-7 h-7 rounded hover:bg-soft-bg font-medium flex items-center justify-center">
+                    2
+                </button>
+                <button class="w-7 h-7 rounded hover:bg-soft-bg font-medium flex items-center justify-center">
+                    3
+                </button>
+                <button class="p-1 rounded hover:bg-soft-bg">
+                    <mat-icon class="text-sm">chevron_right</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    @if (selectedPackage()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div class="absolute inset-0 bg-secondary/60 backdrop-blur-sm" (click)="closeModal()"
+            (keyup.enter)="closeModal()" tabindex="0"></div>
+
+        <div
+            class="relative bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-full animate-in fade-in zoom-in-95 duration-200">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-border-light flex justify-between items-center bg-soft-bg/50">
+                <div>
+                    <h2 class="font-display font-bold text-lg text-secondary">
+                        Detalle del Paquete
+                    </h2>
+                    <p class="text-xs text-gray-500 font-mono mt-0.5">
+                        {{ selectedPackage()?.tracking }}
+                    </p>
+                </div>
+                <button
+                    class="text-gray-400 hover:text-secondary p-2 rounded-full hover:bg-border-light/50 transition-colors"
+                    (click)="closeModal()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+
+            <!-- Modal Body (Similar to Quote Form info) -->
+            <div class="p-6 overflow-y-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <!-- Info -->
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                Descripción
+                            </p>
+                            <p class="font-medium text-secondary">
+                                {{ selectedPackage()?.description }}
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                    Tipo de Envío
+                                </p>
+                                <p class="font-medium text-secondary flex items-center gap-1">
+                                    <mat-icon class="text-sm text-primary">{{ selectedPackage()?.type === 'Aéreo' ?
+                                        'flight' :
+                                        'directions_boat' }}</mat-icon>
+                                    {{ selectedPackage()?.type }}
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                    Fecha
+                                </p>
+                                <p class="font-medium text-secondary">
+                                    {{ selectedPackage()?.date }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                    Peso Físico
+                                </p>
+                                <p class="font-medium text-secondary">
+                                    {{ selectedPackage()?.weight }} lbs
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                    Valor Declarado
+                                </p>
+                                <p class="font-medium text-secondary">
+                                    \${{ selectedPackage()?.value | number:'1.2-2' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Summary -->
+                    <div class="bg-secondary rounded-xl p-5 text-white relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
+
+                        <h3 class="font-display font-bold mb-4 relative z-10">
+                            Desglose de Costos
+                        </h3>
+
+                        <div class="space-y-3 text-sm relative z-10">
+                            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                <span class="text-gray-300">Flete</span>
+                                <span class="font-medium">\${{ (selectedPackage()!.weight * 3) | number:'1.2-2'
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                <span class="text-gray-300">Impuestos (Aprox)</span>
+                                <span class="font-medium">\${{ (selectedPackage()!.value * 0.15) | number:'1.2-2'
+                                    }}</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                                <span class="text-gray-300">Manejo</span>
+                                <span class="font-medium">$2.50</span>
+                            </div>
+
+                            <div class="pt-2 mt-auto">
+                                <p class="text-xs text-gray-400 mb-1">Total Pagado</p>
+                                <p class="text-3xl font-display font-bold text-accent-yellow">
+                                    \${{ selectedPackage()?.total | number:'1.2-2' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 border-t border-border-light bg-soft-bg/30 flex justify-end gap-3">
+                <button class="px-5 py-2 rounded-xl font-medium text-secondary hover:bg-border-light transition-colors"
+                    (click)="closeModal()">
+                    Cerrar
+                </button>
+                <button
+                    class="px-5 py-2 rounded-xl font-medium bg-primary text-white hover:bg-primary/90 shadow-sm transition-colors flex items-center gap-2">
+                    <mat-icon class="text-sm">receipt</mat-icon>
+                    Descargar Factura
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</div>

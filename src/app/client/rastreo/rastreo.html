@@ -1,0 +1,136 @@
+<div class="max-w-3xl mx-auto space-y-8">
+    <div class="text-center">
+        <h1 class="text-3xl font-display font-bold text-secondary">
+            Rastrea tu Paquete
+        </h1>
+        <p class="text-gray-500 mt-2">
+            Ingresa el número de tracking de tu tienda o el número de guía interno.
+        </p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="bg-white p-4 rounded-2xl shadow-sm border border-border-light">
+        <form [formGroup]="searchForm" (ngSubmit)="search()" class="flex gap-3">
+            <div class="relative flex-1">
+                <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</mat-icon>
+                <input type="text" formControlName="trackingNumber" placeholder="Ej. TBA123456789 o LOGI-98765"
+                    class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-border-light bg-soft-bg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-lg font-mono" />
+            </div>
+            <button type="submit" [disabled]="searchForm.invalid"
+                class="px-8 py-3.5 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 shadow-sm disabled:opacity-50 transition-colors">
+                Buscar
+            </button>
+        </form>
+    </div>
+
+    <!-- Result Area -->
+    @if (hasSearched()) {
+    <div class="bg-white rounded-2xl shadow-sm border border-border-light overflow-hidden">
+        <!-- Header Info -->
+        <div
+            class="p-6 border-b border-border-light bg-soft-bg/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <p class="text-sm text-gray-500 font-medium mb-1">Guía / Tracking</p>
+                <h2 class="text-xl font-mono font-bold text-secondary">TBA123456789</h2>
+                <p class="text-sm text-text-light mt-1">Laptop Dell XPS 15</p>
+            </div>
+            <div class="text-left sm:text-right">
+                <p class="text-sm text-gray-500 font-medium mb-1">Estado Actual</p>
+                <span
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-accent-yellow/20 text-yellow-700">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
+                    En Tránsito a SV
+                </span>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="p-6 sm:p-10">
+            <div class="relative max-w-lg mx-auto">
+                <!-- Vertical Line -->
+                <div class="absolute left-6 top-4 bottom-4 w-0.5 bg-border-light"></div>
+
+                <!-- Steps -->
+                <div class="space-y-8">
+                    <!-- Step 1: Delivered -->
+                    <div class="relative flex gap-6">
+                        <div
+                            class="w-12 h-12 shrink-0 rounded-full bg-soft-bg border-2 border-border-light flex items-center justify-center z-10">
+                            <mat-icon class="text-gray-400">home</mat-icon>
+                        </div>
+                        <div class="pt-2 opacity-50">
+                            <h3 class="font-bold text-secondary">Entregado</h3>
+                            <p class="text-sm text-gray-500">Pendiente</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Customs -->
+                    <div class="relative flex gap-6">
+                        <div
+                            class="w-12 h-12 shrink-0 rounded-full bg-soft-bg border-2 border-border-light flex items-center justify-center z-10">
+                            <mat-icon class="text-gray-400">policy</mat-icon>
+                        </div>
+                        <div class="pt-2 opacity-50">
+                            <h3 class="font-bold text-secondary">Aduana SV</h3>
+                            <p class="text-sm text-gray-500">Pendiente</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: In Transit (Current) -->
+                    <div class="relative flex gap-6">
+                        <!-- Active Line segment -->
+                        <div class="absolute left-6 top-6 -bottom-14 w-0.5 bg-primary z-0"></div>
+
+                        <div
+                            class="w-12 h-12 shrink-0 rounded-full bg-primary border-4 border-soft-blue flex items-center justify-center z-10 shadow-md">
+                            <mat-icon class="text-white">flight_takeoff</mat-icon>
+                        </div>
+                        <div class="pt-2">
+                            <h3 class="font-bold text-secondary text-lg">En Tránsito a SV</h3>
+                            <p class="text-sm text-text-light mt-1">
+                                El paquete ha salido de Miami hacia El Salvador.
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1 font-medium">
+                                14 Oct 2023, 08:30 AM
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Miami -->
+                    <div class="relative flex gap-6">
+                        <div class="absolute left-6 top-6 -bottom-14 w-0.5 bg-primary z-0"></div>
+                        <div class="w-12 h-12 shrink-0 rounded-full bg-primary flex items-center justify-center z-10">
+                            <mat-icon class="text-white">inventory_2</mat-icon>
+                        </div>
+                        <div class="pt-2">
+                            <h3 class="font-bold text-secondary">Recibido en Miami</h3>
+                            <p class="text-sm text-text-light mt-1">
+                                Paquete procesado y pesado (4.5 lbs).
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1 font-medium">
+                                12 Oct 2023, 02:15 PM
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Created -->
+                    <div class="relative flex gap-6">
+                        <div class="w-12 h-12 shrink-0 rounded-full bg-primary flex items-center justify-center z-10">
+                            <mat-icon class="text-white">receipt_long</mat-icon>
+                        </div>
+                        <div class="pt-2">
+                            <h3 class="font-bold text-secondary">Pre-Alerta Creada</h3>
+                            <p class="text-sm text-text-light mt-1">
+                                Información recibida por el cliente.
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1 font-medium">
+                                10 Oct 2023, 10:00 AM
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

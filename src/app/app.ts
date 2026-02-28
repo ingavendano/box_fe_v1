@@ -10,5 +10,5 @@ import { Header } from "./public-site/header/header";
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('fe');
+  protected readonly title = signal('Box Express de El Salvador');
 }

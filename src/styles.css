@@ -35,3 +35,37 @@
 
     --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
 }
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-background-light);
+    color: var(--color-text-light);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+}
+
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}

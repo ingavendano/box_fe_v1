@@ -1,0 +1,146 @@
+<div class="space-y-6">
+    <div>
+        <h1 class="text-2xl font-display font-bold text-secondary">
+            Hola, Juan! 👋
+        </h1>
+        <p class="text-gray-500 mt-1">
+            Aquí tienes un resumen de tus paquetes y actividad reciente.
+        </p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-border-light flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-soft-blue flex items-center justify-center text-primary">
+                <mat-icon>inventory_2</mat-icon>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium">En Bodega Miami</p>
+                <p class="text-2xl font-display font-bold text-secondary">3</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-border-light flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-accent-yellow/20 flex items-center justify-center text-yellow-600">
+                <mat-icon>flight_takeoff</mat-icon>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium">En Tránsito</p>
+                <p class="text-2xl font-display font-bold text-secondary">1</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-border-light flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                <mat-icon>check_circle</mat-icon>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 font-medium">Entregados (Mes)</p>
+                <p class="text-2xl font-display font-bold text-secondary">12</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions & Recent -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-2xl shadow-sm border border-border-light p-6">
+            <h2 class="font-display font-bold text-lg text-secondary mb-4">
+                Acciones Rápidas
+            </h2>
+            <div class="space-y-3">
+                <a routerLink="/client/cotizar"
+                    class="flex items-center justify-between p-3 rounded-xl border border-border-light hover:border-primary hover:bg-soft-bg transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-soft-blue flex items-center justify-center text-primary">
+                            <mat-icon class="text-sm">calculate</mat-icon>
+                        </div>
+                        <span class="font-medium text-text-light group-hover:text-primary">Cotizar nuevo envío</span>
+                    </div>
+                    <mat-icon class="text-gray-400 group-hover:text-primary">chevron_right</mat-icon>
+                </a>
+                <a routerLink="/client/rastreo"
+                    class="flex items-center justify-between p-3 rounded-xl border border-border-light hover:border-primary hover:bg-soft-bg transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-soft-blue flex items-center justify-center text-primary">
+                            <mat-icon class="text-sm">my_location</mat-icon>
+                        </div>
+                        <span class="font-medium text-text-light group-hover:text-primary">Rastrear paquete</span>
+                    </div>
+                    <mat-icon class="text-gray-400 group-hover:text-primary">chevron_right</mat-icon>
+                </a>
+                <a routerLink="/client/direcciones"
+                    class="flex items-center justify-between p-3 rounded-xl border border-border-light hover:border-primary hover:bg-soft-bg transition-colors group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-soft-blue flex items-center justify-center text-primary">
+                            <mat-icon class="text-sm">add_location</mat-icon>
+                        </div>
+                        <span class="font-medium text-text-light group-hover:text-primary">Agregar dirección SV</span>
+                    </div>
+                    <mat-icon class="text-gray-400 group-hover:text-primary">chevron_right</mat-icon>
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Packages -->
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-border-light p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="font-display font-bold text-lg text-secondary">
+                    Paquetes Activos
+                </h2>
+                <a routerLink="/client/historico" class="text-sm text-primary font-medium hover:underline">Ver todos</a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-border-light text-sm text-gray-500">
+                            <th class="pb-3 font-medium">Tracking</th>
+                            <th class="pb-3 font-medium">Descripción</th>
+                            <th class="pb-3 font-medium">Estado</th>
+                            <th class="pb-3 font-medium text-right">Actualizado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-border-light/50 hover:bg-soft-bg/50 transition-colors">
+                            <td class="py-3 font-mono text-primary">TBA123456789</td>
+                            <td class="py-3 text-text-light">Laptop Dell XPS</td>
+                            <td class="py-3">
+                                <span
+                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-accent-yellow/20 text-yellow-700">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+                                    En Tránsito
+                                </span>
+                            </td>
+                            <td class="py-3 text-right text-gray-500">Hoy, 10:30 AM</td>
+                        </tr>
+                        <tr class="border-b border-border-light/50 hover:bg-soft-bg/50 transition-colors">
+                            <td class="py-3 font-mono text-primary">1Z9999999999</td>
+                            <td class="py-3 text-text-light">Zapatos Nike</td>
+                            <td class="py-3">
+                                <span
+                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-soft-blue text-primary">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Bodega Miami
+                                </span>
+                            </td>
+                            <td class="py-3 text-right text-gray-500">Ayer, 04:15 PM</td>
+                        </tr>
+                        <tr class="hover:bg-soft-bg/50 transition-colors">
+                            <td class="py-3 font-mono text-primary">94001112020</td>
+                            <td class="py-3 text-text-light">Libros Amazon</td>
+                            <td class="py-3">
+                                <span
+                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-soft-blue text-primary">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Bodega Miami
+                                </span>
+                            </td>
+                            <td class="py-3 text-right text-gray-500">12 Oct, 09:00 AM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

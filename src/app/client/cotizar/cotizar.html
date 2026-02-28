@@ -1,0 +1,168 @@
+<div class="max-w-4xl mx-auto space-y-6">
+    <div>
+        <h1 class="text-2xl font-display font-bold text-secondary">
+            Cotizar Envío
+        </h1>
+        <p class="text-gray-500 mt-1">
+            Calcula el costo aproximado de tu paquete desde Miami hasta El Salvador.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Form -->
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-border-light p-6 sm:p-8">
+            <form [formGroup]="quoteForm" (ngSubmit)="calculate()" class="space-y-6">
+                <!-- Type -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-medium text-secondary" for="type">Tipo de Envío</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label
+                            class="relative flex cursor-pointer rounded-xl border bg-white p-4 shadow-sm focus:outline-none"
+                            [class.border-primary]="quoteForm.get('type')?.value === 'aereo'"
+                            [class.ring-1]="quoteForm.get('type')?.value === 'aereo'"
+                            [class.ring-primary]="quoteForm.get('type')?.value === 'aereo'"
+                            [class.border-border-light]="quoteForm.get('type')?.value !== 'aereo'">
+                            <input type="radio" formControlName="type" value="aereo" class="sr-only" />
+                            <span class="flex flex-1">
+                                <span class="flex flex-col">
+                                    <span class="flex items-center gap-2 block text-sm font-medium text-secondary">
+                                        <mat-icon class="text-primary">flight</mat-icon> Aéreo
+                                    </span>
+                                    <span class="mt-1 flex items-center text-xs text-gray-500">3-5 días hábiles</span>
+                                </span>
+                            </span>
+                            @if (quoteForm.get('type')?.value === 'aereo') {
+                            <mat-icon class="text-primary">check_circle</mat-icon>
+                            }
+                        </label>
+
+                        <label
+                            class="relative flex cursor-pointer rounded-xl border bg-white p-4 shadow-sm focus:outline-none"
+                            [class.border-primary]="quoteForm.get('type')?.value === 'maritimo'"
+                            [class.ring-1]="quoteForm.get('type')?.value === 'maritimo'"
+                            [class.ring-primary]="quoteForm.get('type')?.value === 'maritimo'"
+                            [class.border-border-light]="quoteForm.get('type')?.value !== 'maritimo'">
+                            <input type="radio" formControlName="type" value="maritimo" class="sr-only" />
+                            <span class="flex flex-1">
+                                <span class="flex flex-col">
+                                    <span class="flex items-center gap-2 block text-sm font-medium text-secondary">
+                                        <mat-icon class="text-primary">directions_boat</mat-icon>
+                                        Marítimo
+                                    </span>
+                                    <span class="mt-1 flex items-center text-xs text-gray-500">15-20 días hábiles</span>
+                                </span>
+                            </span>
+                            @if (quoteForm.get('type')?.value === 'maritimo') {
+                            <mat-icon class="text-primary">check_circle</mat-icon>
+                            }
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Weight -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-secondary" for="weight">Peso Físico</label>
+                        <div class="relative">
+                            <input id="weight" type="number" formControlName="weight" placeholder="0.00"
+                                class="w-full pl-4 pr-12 py-2.5 rounded-xl border border-border-light bg-soft-bg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" />
+                            <span
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium text-sm">lbs</span>
+                        </div>
+                    </div>
+
+                    <!-- Value -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-medium text-secondary" for="value">Valor Declarado
+                            (Factura)</label>
+                        <div class="relative">
+                            <span
+                                class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium text-sm">$</span>
+                            <input id="value" type="number" formControlName="value" placeholder="0.00"
+                                class="w-full pl-8 pr-4 py-2.5 rounded-xl border border-border-light bg-soft-bg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dimensions -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-medium text-secondary" for="length">Dimensiones (Pulgadas) -
+                        Opcional</label>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="relative">
+                            <input id="length" type="number" formControlName="length" placeholder="Largo"
+                                class="w-full px-4 py-2.5 rounded-xl border border-border-light bg-soft-bg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm" />
+                        </div>
+                        <div class="relative">
+                            <input id="width" type="number" formControlName="width" placeholder="Ancho"
+                                class="w-full px-4 py-2.5 rounded-xl border border-border-light bg-soft-bg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm" />
+                        </div>
+                        <div class="relative">
+                            <input id="height" type="number" formControlName="height" placeholder="Alto"
+                                class="w-full px-4 py-2.5 rounded-xl border border-border-light bg-soft-bg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-sm" />
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500">
+                        Si el peso volumétrico es mayor al físico, se cobrará el
+                        volumétrico.
+                    </p>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" [disabled]="quoteForm.invalid"
+                        class="w-full py-3 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 shadow-sm disabled:opacity-50 transition-colors flex items-center justify-center gap-2">
+                        <mat-icon>calculate</mat-icon>
+                        Calcular Costo
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Result -->
+        <div class="bg-secondary rounded-2xl shadow-lg p-6 text-white flex flex-col relative overflow-hidden">
+            <!-- Decorative bg -->
+            <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+            <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-primary/20 rounded-full blur-2xl"></div>
+
+            <h2 class="font-display font-bold text-lg mb-6 relative z-10">
+                Resumen de Cotización
+            </h2>
+
+            @if (calculatedResult()) {
+            <div class="space-y-4 flex-1 relative z-10">
+                <div class="flex justify-between items-center text-sm border-b border-white/10 pb-2">
+                    <span class="text-gray-300">Flete ({{ quoteForm.get('weight')?.value }} lbs)</span>
+                    <span class="font-medium">$15.00</span>
+                </div>
+                <div class="flex justify-between items-center text-sm border-b border-white/10 pb-2">
+                    <span class="text-gray-300">Impuestos Aduanales (Aprox)</span>
+                    <span class="font-medium">$12.50</span>
+                </div>
+                <div class="flex justify-between items-center text-sm border-b border-white/10 pb-2">
+                    <span class="text-gray-300">Manejo y Seguro</span>
+                    <span class="font-medium">$2.50</span>
+                </div>
+
+                <div class="mt-auto pt-6">
+                    <p class="text-sm text-gray-400 mb-1">Total Estimado</p>
+                    <p class="text-4xl font-display font-bold text-accent-yellow">
+                        $30.00
+                    </p>
+                    <p class="text-xs text-gray-400 mt-4 leading-relaxed">
+                        * Este es un valor aproximado. El costo final puede variar al
+                        recibir y medir el paquete físicamente en bodega.
+                    </p>
+                </div>
+            </div>
+            } @else {
+            <div class="flex-1 flex flex-col items-center justify-center text-center opacity-50 relative z-10">
+                <mat-icon class="text-5xl mb-4">receipt_long</mat-icon>
+                <p class="text-sm">
+                    Ingresa los datos de tu paquete y presiona calcular para ver el
+                    estimado.
+                </p>
+            </div>
+            }
+        </div>
+    </div>
+</div>
