@@ -1,3 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-primary: #00AEEF;
+    --color-secondary: #2B3C55;
+    --color-soft-blue: #E0F2FE;
+    --color-soft-bg: #F0F9FF;
+    --color-accent-yellow: #FFD54F;
+    --color-card-light: #FFFFFF;
+    --color-card-dark: #1E293B;
+    --color-border-light: #E2E8F0;
+    --color-border-dark: #334155;
+    --color-soft-blue-border: #BAE6FD;
+    --color-background-light: #F0F9FF;
+    --color-background-dark: #0F172A;
+    --color-surface-light: #FFFFFF;
+    --color-surface-dark: #1E293B;
+    --color-text-light: #334155;
+    --color-text-dark: #E2E8F0;
+
+
+    --font-display: "Montserrat", sans-serif;
+    --font-body: "Open Sans", sans-serif;
+
+    --radius: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
+
+    --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+}

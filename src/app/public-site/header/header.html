@@ -1,0 +1,46 @@
+<nav
+    class="fixed w-full z-50 bg-white/95 dark:bg-surface-dark/95 backdrop-blur-sm shadow-sm transition-colors duration-300 border-b border-gray-100 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex-shrink-0 flex items-center gap-3">
+                <div class="w-12 h-12 relative">
+                    <img alt="Box Express Logo" class="h-12 w-auto object-contain" ngSrc="assets/logo.png" width="48"
+                        height="48" />
+                </div>
+                <span class="font-display font-bold text-2xl text-secondary dark:text-white tracking-tight">UNIENDO<span
+                        class="text-primary"> EL SALVADOR - USA</span></span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a class="text-secondary dark:text-gray-200 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+                    routerLink="/inicio" routerLinkActive="font-bold">Inicio</a>
+                <a class="text-secondary dark:text-gray-200 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+                    routerLink="/servicios" routerLinkActive="font-bold">Servicios</a>
+                <a class="text-secondary dark:text-gray-200 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+                    routerLink="/cotizador" routerLinkActive="font-bold">Cotizar</a>
+                <a class="text-secondary dark:text-gray-200 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+                    routerLink="/rastreo" routerLinkActive="font-bold">Rastrear</a>
+                <a class="text-secondary dark:text-gray-200 hover:text-primary dark:hover:text-primary font-medium transition-colors"
+                    routerLink="/registro" routerLinkActive="font-bold">Registro</a>
+                <button
+                    class="bg-primary hover:bg-sky-500 text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-primary/30 transform hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">login</span> Mi Cuenta
+                </button>
+                <button
+                    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-secondary dark:text-white transition-colors"
+                    (click)="toggleDarkMode()">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+            </div>
+            <div class="md:hidden flex items-center gap-4">
+                <button
+                    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-secondary dark:text-white transition-colors"
+                    (click)="toggleDarkMode()">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <button class="text-secondary dark:text-white p-2">
+                    <span class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
